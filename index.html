@@ -11,10 +11,10 @@
     <meta name="robots" content="allow-index">
     <meta name="title" content="Bruno Barroso - Desenvolvedor Fortaleza CE">
     <meta name="DC.title" content="Bruno Barroso - Desenvolvedor Fortaleza CE">
-    <meta name="keywords" content="desenvolvedor, programador, develop, desarrollo, web, php, laravel, wordpress, codeigniter, git, jira, ruby, javascript, angularjs, fortaleza, ce, brasil, programador fortaleza, development">
+    <meta name="keywords" content="bruno barroso, desenvolvedor web, php, laravel, wordpress, freelancer, javascript, fortaleza">
     <meta name="DC.subject" content="">
     <link rel="canonical" href="http://brunorbarroso.github.io/" />
-    <title>Bruno Barroso - Web Developer / Desenvolvedor de Sistemas</title>
+    <title>Bruno Barroso - Desenvolvedor web em Fortaleza, CE</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -58,7 +58,7 @@
     <header id="top" class="header">
         <div class="text-vertical-center title-header">
             <h1>Bruno Barroso</h1>
-            <h3>​Web ​Analyst and ​Developer​</h3>
+            <h3>​Analista ​web e ​desenvolvedor​</h3>
             <br> <a href="#about" class="btn btn-dark btn-lg">Experiência</a> </div>
     </header>
     <!-- About -->
@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>Agregando valor ao seu negócio</h2>
-                    <p class="lead">Desenvolvedor web com mais de 5 anos de experiencia no mercado com PHP, .Net, JavaScript, SQL, Wordpress, Laravel, HTML e CSS.</p>
+                    <p class="lead">Desenvolvedor web com mais de 6 anos de experiencia no mercado com PHP, .Net, JavaScript, SQL, Wordpress, Laravel, HTML, CSS e ERP's</p>
                 </div>
             </div>
             <!-- /.row -->
@@ -134,7 +134,7 @@
                         <div class="col-md-6">
                             <div class="portfolio-item">
                                 <!--<a href="/artigos/" target="_blank"> <img class="img-portfolio img-responsive" src="img/clients/finalizei-contabilidade.png" width="225" height="220"> </a>-->
-                                <p>Nenhum existe nenhum artigo.</p>
+                                <p>Não existe nenhum artigo.</p>
                                 <br>
                                 <br>
                                 <br> </div>
@@ -254,7 +254,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Bruno Barroso - Web Analytic and Developer</strong> </h4>
+                    <h4><strong>Bruno Barroso - Analista web e desenvolvedor</strong> </h4>
                     <p>210 Jereissati II, Maracanaú
                         <br>Ceará, Brasil</p>
                     <ul class="list-unstyled">
@@ -268,7 +268,7 @@
                         <li> <a href="https://github.com/brunorbarroso/" target="_blank"><i class="fa fa-github fa-fw fa-3x"></i></a> </li>
                     </ul>
                     <hr class="small">
-                    <p class="text-muted">Copyright &copy; Bruno Barroso - Web Analytic and Developer 2016</p>
+                    <p class="text-muted">Copyright &copy; Bruno Barroso - Analista web e desenvolvedor 2016</p>
                 </div>
             </div>
         </div> <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a> </footer>
@@ -278,7 +278,42 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script>
-        // Closes the sidebar menu $("#menu-close").click(function(e) { e.preventDefault(); $("#sidebar-wrapper").toggleClass("active"); }); // Opens the sidebar menu $("#menu-toggle").click(function(e) { e.preventDefault(); $("#sidebar-wrapper").toggleClass("active"); }); // Scrolls to the selected menu item on the page $(function() { $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() { if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) { var target = $(this.hash); target = target.length ? target : $('[name=' + this.hash.slice(1) + ']'); if (target.length) { $('html,body').animate({ scrollTop: target.offset().top }, 1000); return false; } } }); }); //#to-top button appears after scrolling var fixed = false; $(document).scroll(function() { if ($(this).scrollTop() > 250) { if (!fixed) { fixed = true; // $('#to-top').css({position:'fixed', display:'block'}); $('#to-top').show("slow", function() { $('#to-top').css({ position: 'fixed', display: 'block' }); }); } } else { if (fixed) { fixed = false; $('#to-top').hide("slow", function() { $('#to-top').css({ display: 'none' }); }); } } }); // Disable Google Maps scrolling // See http://stackoverflow.com/a/25904582/1607849 // Disable scroll zooming and bind back the click event var onMapMouseleaveHandler = function(event) { var that = $(this); that.on('click', onMapClickHandler); that.off('mouseleave', onMapMouseleaveHandler); that.find('iframe').css("pointer-events", "none"); } var onMapClickHandler = function(event) { var that = $(this); // Disable the click handler until the user leaves the map area that.off('click', onMapClickHandler); // Enable scrolling zoom that.find('iframe').css("pointer-events", "auto"); // Handle the mouse leave event that.on('mouseleave', onMapMouseleaveHandler); } // Enable map zooming with mouse scroll when the user clicks the map $('.map').on('click', onMapClickHandler);
+        // Closes the sidebar menu 
+        $("#menu-close").click(function(e) { e.preventDefault(); $("#sidebar-wrapper").toggleClass("active"); }); 
+        // Opens the sidebar menu 
+        $("#menu-toggle").click(function(e) { e.preventDefault(); $("#sidebar-wrapper").toggleClass("active"); }); 
+        // Scrolls to the selected menu item on the page 
+        $(function() { $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() { if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) { var target = $(this.hash); target = target.length ? target : $('[name=' + this.hash.slice(1) + ']'); if (target.length) { $('html,body').animate({ scrollTop: target.offset().top }, 1000); return false; } } }); }); 
+        //#to-top button appears after scrolling var fixed = false; 
+        $(document).scroll(function() { 
+            if ($(this).scrollTop() > 250) { 
+                if (!fixed) { fixed = true;
+                             $('#to-top').css({position:'fixed', display:'block'});
+                             $('#to-top').show("slow", function() { 
+                                 $('#to-top').css({ position: 'fixed', display: 'block' }); }); } } 
+            else { 
+                if (fixed) { 
+                    fixed = false; $('#to-top').hide("slow", function() { 
+                        $('#to-top').css({ display: 'none' }); }); } } }); 
+        // Disable Google Maps scrolling 
+        // See http://stackoverflow.com/a/25904582/1607849 
+        // Disable scroll zooming and bind back the click event 
+        var onMapMouseleaveHandler = function(event) { 
+            var that = $(this); that.on('click', onMapClickHandler); 
+            that.off('mouseleave', onMapMouseleaveHandler); 
+            that.find('iframe').css("pointer-events", "none"); 
+        } 
+        var onMapClickHandler = function(event) { 
+            var that = $(this); 
+            // Disable the click handler until the user leaves the map area 
+            that.off('click', onMapClickHandler); 
+            // Enable scrolling zoom 
+            that.find('iframe').css("pointer-events", "auto"); 
+            // Handle the mouse leave event 
+            that.on('mouseleave', onMapMouseleaveHandler); 
+        } 
+        // Enable map zooming with mouse scroll when the user clicks the map 
+        $('.map').on('click', onMapClickHandler);
     </script>
 </body>
 
