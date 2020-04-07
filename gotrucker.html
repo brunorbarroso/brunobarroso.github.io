@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <button class="btn btn-primary" onclick="getLocation()">Minha localização</button>
+        <div style="display: none;" id="content">
+            <h1>Você está aqui!</h1>
+            <div id="content2"></div>
+            <img src="" id="locationImg" height="250">
+        </div>
+        <hr>
+        <div style="display: none;" id="list">
+            <h1>Pontos proximos a você!</h1>
+            <ul id="items"></ul>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script>
+    let getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position)=>{
+            const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+            document.getElementById('content').style.display = 'block';
+            setLocation(longitude, latitude)
+            });
+        } else {
+        console.log("No support for geolocation")
+        }
+    }
+
+    let setLocation = (Longitude, Latitude) => {
+        let content = document.getElementById('content2');
+        let img = document.getElementById('locationImg');
+        let uri = `http://open.mapquestapi.com/geocoding/v1/reverse\?key\=OGM16w19YWrtdyetFHM52No1oENTBBgZ\&location\=${Latitude},${Longitude}\&includeRoadMetadata\=true\&includeNearestIntersection\=true`;
+
+        callApi(uri).then(data => {
+                let location = data.results[0].locations[0];
+                content.innerHTML = `${location.adminArea5Type}:${location.adminArea5}<br>${location.adminArea3Type}:${location.adminArea3}<br>${location.adminArea1Type}:${location.adminArea1}<br>`;
+                img.src = location.mapUrl
+                getMunicipios().then(municipios => {
+                    let foundState = municipios.filter((item)=>{
+                        return item.nome == location.adminArea3
+                    })
+                    console.log('municipios', location.adminArea5)
+                    if(foundState){
+                        console.log('estado', foundState[0].uf)
+                        setPoints(foundState[0].uf, location.adminArea5)
+                    }
+                })
+            }
+        )
+    }
+
+    let setPoints = (state, city) => {
+        let list = document.getElementById('list');
+        let itemList = document.getElementById('items')
+        let uri = `https://api-siga-caminhoneiro.prf.gov.br/api/v1/busca/pontos?busca=lista&uf=${state}&municipio=${city}&categoria=`;
+        callApi(uri).then(data => {
+                if(data.Pontos && data.Pontos.length > 0){
+                    list.style.display = "block";
+                    let items = data.Pontos.Ponto
+                    items.map((item)=>{
+                        let li = document.createElement('li')
+                        li.innerHTML = setPoint(item)
+                        itemList.append(li)
+                    })
+                    console.log('item', itemList)
+                }else{
+                    list.style.display = "block";
+                    let li = document.createElement('li')
+                        li.innerHTML = "<h4>Infelizmente nenhum estabelecimento foi encontrado na sua localização.</h4>"
+                        itemList.append(li)
+                }
+            }
+        )
+    }
+
+    let setPoint = (point) => {
+        return `<strong>Nome do estabelecimento:</strong> ${point.nome_fantasia}<br>`
+        + `<strong>Categoria:</strong> ${point.categoria}<br>`
+        + `<strong>Responsável:</strong> ${point.responsavel}<br>`
+        + `<strong>Telefone:</strong> ${point.telefone}<br>`
+        + `<strong>Estado:</strong> ${point.no_uf}<br>`
+        + `<strong>Município:</strong> ${point.municipio}<br>`
+        + `<strong>BR:</strong> ${point.br}<br>`
+        + `<strong>Km:</strong> ${point.km}<br>`
+        + `<strong>Período:</strong> ${point.periodo}<br>`
+        + `<strong>Sempre aberto?</strong> ${point.sempre_aberto}<br>`
+        + `<strong>Abertura:</strong> ${point.horario_abertura}<br>`
+        + `<strong>Fechamento:</strong> ${point.horario_fechamento}<br>`
+        + `<strong>Observações:</strong> ${point.observacoes}<br>`
+        + `<strong>Longitude:</strong> ${point.longitude}<br>`
+        + `<strong>Latitude:</strong> ${point.latitude}<br><hr>`;
+    }
+
+    let getMunicipios = async () => {
+        return await callApi('https://raw.githubusercontent.com/kelvins/Municipios-Brasileiros/master/json/estados.json')
+    }
+
+    let findMunicipios = (municipio) => {
+        getMunicipios().then(municipios => {
+            console.log('municipios', municipios)
+            console.log('search', municipio)
+            var found = municipios.filter((item)=>{
+                return item.nome == municipio
+                })
+                return found
+        })
+        
+    }
+
+    let callApi = (uri, mode = 'cors') => {
+        var myInit = {
+                        method: 'GET',
+                        headers: new Headers(),
+                        mode: mode,
+                        cache: 'default'
+                    };
+
+        return fetch(uri, myInit)
+            .then(response => response.json());
+    }
+</script>
+</html>
